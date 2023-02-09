@@ -8,12 +8,9 @@ const Div = styled.div`
   right: 20px;
 `;
 
-function Plus({ showList = [], handleSetIsOpen }) {
+function Plus({ handleSetIsOpen }) {
   return (
-    <Div
-      className={showList.length ? 'footer' : null}
-      onClick={handleSetIsOpen}
-    >
+    <Div onClick={handleSetIsOpen}>
       <FontAwesomeIcon icon={faPlus} size='3x' />
     </Div>
   );
