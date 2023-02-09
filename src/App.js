@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from './Header';
+import Contents from './Pages/Contents';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+`;
 
 function App() {
+  const [isToday, setIsToday] = useState(true);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Div>
+      <Header isToday={isToday} setIsToday={setIsToday} />
+      <Contents isToday={isToday} />
+    </Div>
   );
 }
 
