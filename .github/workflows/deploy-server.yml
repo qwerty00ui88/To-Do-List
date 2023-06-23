@@ -34,7 +34,7 @@ jobs:
                 - name: NODE_ENV
                   value: production
               ports: "3001"
-              install: npm ci --production
+              install: npm ci --omit=dev
               build: ""
               start: node index.js
             context:
@@ -42,4 +42,3 @@ jobs:
                 url: git@github.com:${{ github.repository }}.git
                 ref: ${{ github.ref }}
               preset: node
-        working-directory: ./server
