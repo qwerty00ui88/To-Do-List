@@ -16,8 +16,12 @@ jobs:
           ghtoken: ${{ secrets.GHP_TOKEN }}
       - name: Install dependencies
         run: |
-          if [ ! -e package-lock.json ]; then
-            npm i
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
           fi
         working-directory: ./server
       - name: Deploy
