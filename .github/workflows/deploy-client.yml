@@ -10,12 +10,10 @@ jobs:
     steps:
       - name: Use repository source
         uses: actions/checkout@v2
-
       - name: Use node.js
         uses: actions/setup-node@v1
         with:
           node-version: '20'
-
       - name: Cache node_modules
         id: cache
         uses: actions/cache@v3
@@ -24,16 +22,13 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
         working-directory: ./client
-
       - name: Build
         run: npm run build
         working-directory: ./client
-
       - name: Deploy
         uses: crazy-max/ghaction-github-pages@v1
         with:
