@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Modal from './Modal';
 
 const Div = styled.div`
   padding: 2px;
