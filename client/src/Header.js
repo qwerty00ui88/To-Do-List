@@ -3,7 +3,6 @@ const H1 = styled.h1`
   color: gray;
   display: block;
   margin: 0 0 18px;
-  cursor: pointer;
 `;
 function Header({ isToday, setIsToday }) {
   const handleSetIsToday = () => {
