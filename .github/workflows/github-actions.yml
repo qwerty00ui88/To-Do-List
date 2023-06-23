@@ -27,19 +27,17 @@ jobs:
 
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          cd client
-          npm ci
+        run: cd client
+        working-directory: ./client
 
       - name: Build
-        run: |
-          cd client
-          npm run build
+        run: npm run build
+        working-directory: ./client
 
       - name: Deploy
         uses: crazy-max/ghaction-github-pages@v1
         with:
           target_branch: gh-pages
-          build_dir: build
+          build_dir: ./client/build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
