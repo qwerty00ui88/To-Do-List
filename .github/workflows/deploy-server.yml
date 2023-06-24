@@ -14,16 +14,6 @@ jobs:
         with:
           token: ${{ secrets.CLOUDTYPE_TOKEN }}
           ghtoken: ${{ secrets.GHP_TOKEN }}
-      - name: Install dependencies
-        run: |
-          if [ -e yarn.lock ]; then
-          yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-        working-directory: ./server
       - name: Deploy
         uses: cloudtype-github-actions/deploy@v1
         with:
@@ -38,9 +28,9 @@ jobs:
                 - name: NODE_ENV
                   value: production
               ports: "3001"
-              install: cd server && npm ci --omit=dev
+              install: npm i --production
               build: ""
-              start: cd server && node index.js
+              start: node index.js
             context:
               git:
                 url: git@github.com:${{ github.repository }}.git
