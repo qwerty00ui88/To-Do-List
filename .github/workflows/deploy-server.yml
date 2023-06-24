@@ -16,6 +16,7 @@ jobs:
           ghtoken: ${{ secrets.GHP_TOKEN }}
       - name: Deploy
         uses: cloudtype-github-actions/deploy@v1
+        working-directory: ./server
         with:
           token: ${{ secrets.CLOUDTYPE_TOKEN }}
           project: sohui.dev/to-do-list-react
