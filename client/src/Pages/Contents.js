@@ -40,7 +40,7 @@ function Contents({ isToday }) {
   const [reRender, setReRender] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:3001/todos')
+    fetch(`${process.env.REACT_APP_URL}/todos`)
       .then((res) => {
         if (!res.ok) {
           throw Error('could not fetch the data for that resource');
@@ -48,7 +48,7 @@ function Contents({ isToday }) {
         return res.json();
       })
       .then((data) => {
-        setList(data);
+        setList(data.todos);
       });
   }, [reRender]);
 

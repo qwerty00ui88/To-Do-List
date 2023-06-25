@@ -14,7 +14,7 @@ function List({
   setReRender,
 }) {
   const deleteList = (e) => {
-    fetch(`http://localhost:3001/todos/${e.target.id}`, {
+    fetch(`${process.env.REACT_APP_URL}/todos/${e.target.id}`, {
       method: 'DELETE',
     })
       .then((res) => {

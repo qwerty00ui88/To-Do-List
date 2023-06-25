@@ -77,7 +77,7 @@ const Modal = (
       dueDate,
     };
 
-    fetch('http://localhost:3001/todos/', {
+    fetch(`${process.env.REACT_APP_URL}/todos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ const Modal = (
   };
 
   const editText = () => {
-    fetch(`http://localhost:3001/todos/${currentList}`, {
+    fetch(`${process.env.REACT_APP_URL}/todos/${currentList}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ const Modal = (
   };
 
   const deleteList = () => {
-    fetch(`http://localhost:3001/todos/${currentList}`, {
+    fetch(`${process.env.REACT_APP_URL}/todos/${currentList}`, {
       method: 'DELETE',
     })
       .then((res) => {
