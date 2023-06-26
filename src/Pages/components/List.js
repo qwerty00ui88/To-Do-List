@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Modal from './Modal';
 
 const Div = styled.div`
   padding: 2px;
@@ -15,7 +14,7 @@ function List({
   setReRender,
 }) {
   const deleteList = (e) => {
-    fetch(`http://localhost:3001/todos/${e.target.id}`, {
+    fetch(`${process.env.REACT_APP_URL}/todos/${e.target.id}`, {
       method: 'DELETE',
     })
       .then((res) => {
