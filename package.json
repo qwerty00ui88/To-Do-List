@@ -45,5 +45,8 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://qwerty00ui88.github.io/to-do-list-react/"
+  "homepage": "https://qwerty00ui88.github.io/to-do-list-react/",
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
+  }
 }
