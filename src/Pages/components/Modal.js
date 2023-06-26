@@ -77,7 +77,7 @@ const Modal = (
       dueDate,
     };
 
-    fetch('${process.env.REACT_APP_URL}/todos/', {
+    fetch(`${process.env.REACT_APP_URL}/todos/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
