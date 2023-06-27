@@ -28,9 +28,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Access to secrets
-        run: echo "REACT_APP_URL=$REACT_APP_URL" >> .env
-        env:
-          REACT_APP_URL: ${{ secrets.TODO_REACT_URL }}
+        run: echo "REACT_APP_URL=${{ secrets.TODO_REACT_URL }}" >> .env
       - name: Deploy
         uses: crazy-max/ghaction-github-pages@v1
         with:
