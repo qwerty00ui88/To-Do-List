@@ -31,7 +31,7 @@ jobs:
         run: |
           echo "REACT_APP_URL=$REACT_APP_URL" > .env
         env:
-          MAP_API_KEY: ${{secrets.REACT_APP_URL}}
+          REACT_APP_URL: ${{secrets.REACT_APP_URL}}
       - name: Deploy
         uses: crazy-max/ghaction-github-pages@v1
         with:
