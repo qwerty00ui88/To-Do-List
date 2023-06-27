@@ -26,7 +26,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Access to secrets
-        run: echo "REACT_APP_URL=${{ secrets.TODO_REACT_URL }}" >> .env
+        run: echo "REACT_APP_URL=$REACT_APP_URL" > .env
       - name: Build
         run: npm run build
       - name: Deploy
@@ -36,3 +36,4 @@ jobs:
           build_dir: ./build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REACT_APP_URL: ${{ secrets.TODO_REACT_URL }}
