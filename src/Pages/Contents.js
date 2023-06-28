@@ -1,21 +1,13 @@
 import List from './components/List';
-import Modal from './components/Modal';
 import Plus from './components/Plus';
-import { useRef } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled, { css } from 'styled-components';
 import { useState, useEffect } from 'react';
-
-const Div = styled.div`
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-`;
+import Modal from './components/Modal';
 
 const Main = styled.main`
-  flex-grow: 1;
+  height: 80vh;
+  overflow: auto;
+
   ${(props) => {
     return (
       props.isEmpty &&
@@ -31,45 +23,8 @@ const Main = styled.main`
 
 function Contents({ isToday }) {
   const [list, setList] = useState([]);
-  const [text, setText] = useState('');
-  const [dueDate, setDueDate] = useState(
-    `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(
-      2,
-      '0'
-    )}-${String(new Date().getDate()).padStart(2, '0')}`
-  );
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
-  const [currentList, setCurrentList] = useState({});
   const [reRender, setReRender] = useState(false);
-
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_URL}/todos`)
-      .then((res) => {
-        if (!res.ok) {
-          throw Error('could not fetch the data for that resource');
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setList(data);
-      });
-  }, [reRender]);
-
-  const modalRef = useRef(null);
-
-  const handleSetIsOpen = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleModalClose = (e) => {
-    if (isOpen && modalRef.current !== e.target) {
-      setIsOpen(!isOpen);
-      setIsEdit(false);
-      setText('');
-    }
-  };
+  const [isOpen, setIsOpen] = useState(false);
 
   const today = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
@@ -86,58 +41,64 @@ function Contents({ isToday }) {
   });
 
   const showList = isToday ? todayList : afterList;
+
+  const handleSetIsOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleSetReRender = () => {
+    setReRender(!reRender);
+  };
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_URL}/todos`)
+      .then((res) => {
+        if (!res.ok) {
+          throw Error('could not fetch the data for that resource');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setList(data);
+      });
+  }, [reRender]);
+
   return (
-    <Div>
-      {!showList.length ? (
-        <Main isEmpty={true} onClick={handleSetIsOpen}>
-          {isOpen ? null : (
-            <FontAwesomeIcon
-              icon={faPlus}
-              size='3x'
-              style={{ color: '#e8e7e0' }}
+    <>
+      <Main isEmpty={!showList.length}>
+        {showList.map((el, idx) => {
+          return (
+            <List
+              key={idx}
+              todoInfo={el}
+              handleSetReRender={handleSetReRender}
+              isOpen={isOpen}
+              handleSetIsOpen={handleSetIsOpen}
             />
-          )}
-        </Main>
-      ) : (
-        <Main isEmpty={false} onClick={handleModalClose}>
-          {showList.map((el, idx) => {
-            return (
-              <List
-                key={idx}
-                todoInfo={el}
-                setIsOpen={setIsOpen}
-                setIsEdit={setIsEdit}
-                setText={setText}
-                setCurrentList={setCurrentList}
-                reRender={reRender}
-                setReRender={setReRender}
-              />
-            );
-          })}
-          <Plus
-            showList={showList}
-            handleSetIsOpen={handleSetIsOpen}
-            isToday={isToday}
-          />
-        </Main>
-      )}
+          );
+        })}
+        <Plus handleSetReRender={handleSetReRender} isCenter={!list.length} />
+      </Main>
+
       {isOpen ? (
         <Modal
-          ref={modalRef}
-          text={text}
-          setText={setText}
-          dueDate={dueDate}
-          setDueDate={setDueDate}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          isEdit={isEdit}
-          setIsEdit={setIsEdit}
-          currentList={currentList}
-          reRender={reRender}
-          setReRender={setReRender}
+          todo={{
+            id: new Date().toISOString(),
+            text: '',
+            dueDate: `${new Date().getFullYear()}-${String(
+              new Date().getMonth() + 1
+            ).padStart(2, '0')}-${String(new Date().getDate()).padStart(
+              2,
+              '0'
+            )}`,
+            isChecked: false,
+          }}
+          status='add'
+          handleSetReRender={handleSetReRender}
+          handleSetIsOpen={handleSetIsOpen}
         />
       ) : null}
-    </Div>
+    </>
   );
 }
 

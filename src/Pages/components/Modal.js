@@ -1,15 +1,4 @@
-//자식 컴포넌트 태그의 ref를 부모 컴포넌트로 가져오기
-//1.부모 컴포넌트에서 const 변수 = useRef(null)
-//2.부모 컴포넌트 return 안의 해당 자식 컴포넌트 태그에 ref={변수}
-//3.자식 컴포넌트에 import { forwardRef } from 'react';
-//3.자식 컴포넌트 함수의 인자로 'props, ref' 내려줌, 구조분해할당으로 다른 인자를 받고 있다면 '{다른 인자}, ref'로 넣어 줌
-//4.자식 컴포넌트 내부에서 가져오고 싶은 html 태그에 ref={ref}
-//5. export default forwardRef(자식 컴포넌트 이름);
-//6.부모 컴포넌트에서 변수.current로 자식 컴포넌트 내부의 html ref 가져오기 가능
-
-//중괄호 있으면 return 꼭 쓰기
-
-import { forwardRef } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const Div = styled.div`
@@ -46,43 +35,23 @@ const Buttons = styled.div`
   }
 `;
 
-const Modal = (
-  {
-    text,
-    setText,
-    dueDate,
-    setDueDate,
-    isOpen,
-    setIsOpen,
-    isEdit,
-    setIsEdit,
-    currentList,
-    reRender,
-    setReRender,
-  },
-  ref
-) => {
+const Modal = ({ todo, handleSetIsOpen, status, handleSetReRender }) => {
+  const [todoValue, setTodoValue] = useState(todo);
   const handleSetDueDate = (e) => {
-    setDueDate(e.target.value);
+    setTodoValue({ ...todoValue, dueDate: e.target.value });
   };
 
   const handleSetText = (e) => {
-    setText(e.target.value);
+    setTodoValue({ ...todoValue, text: e.target.value });
   };
 
   const addList = () => {
-    let newList = {
-      id: new Date().toISOString(),
-      text,
-      dueDate,
-    };
-
     fetch(`${process.env.REACT_APP_URL}/todos/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newList),
+      body: JSON.stringify(todoValue),
     })
       .then((res) => {
         if (!res.ok) {
@@ -90,25 +59,25 @@ const Modal = (
         }
         return res.json();
       })
-      .then((data) => {
-        setReRender(!reRender);
+      .then(() => {
+        handleSetReRender();
+        handleSetIsOpen();
       })
       .catch((err) => {
         console.error('Error', err);
       });
-
-    setIsOpen(!isOpen);
-    setIsEdit(false);
-    setText('');
   };
 
-  const editText = () => {
-    fetch(`${process.env.REACT_APP_URL}/todos/${currentList}`, {
+  const editValue = () => {
+    fetch(`${process.env.REACT_APP_URL}/todos/${todoValue.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ text: text }),
+      body: JSON.stringify({
+        text: todoValue.text,
+        dueDate: todoValue.dueDate,
+      }),
     })
       .then((res) => {
         if (!res.ok) {
@@ -116,20 +85,17 @@ const Modal = (
         }
         return res.json();
       })
-      .then((data) => {
-        setReRender(!reRender);
+      .then(() => {
+        handleSetReRender();
+        handleSetIsOpen();
       })
       .catch((err) => {
         console.error('Error', err);
       });
-
-    setIsOpen(!isOpen);
-    setIsEdit(false);
-    setText('');
   };
 
   const deleteList = () => {
-    fetch(`${process.env.REACT_APP_URL}/todos/${currentList}`, {
+    fetch(`${process.env.REACT_APP_URL}/todos/${todoValue.id}`, {
       method: 'DELETE',
     })
       .then((res) => {
@@ -139,37 +105,34 @@ const Modal = (
         return res.json();
       })
       .then((data) => {
-        setReRender(!reRender);
+        handleSetReRender();
+        handleSetIsOpen();
       })
       .catch((err) => {
         console.error('Error', err);
       });
-
-    setIsOpen(false);
-    setIsEdit(false);
-    setText('');
   };
 
   return (
-    <Div ref={ref} className='modal'>
-      {isEdit ? null : (
-        <Input
-          id='dateInput'
-          type='date'
-          onChange={handleSetDueDate}
-          value={dueDate}
-        />
-      )}
+    <Div className='modal'>
+      <Input
+        id='dateInput'
+        type='date'
+        onChange={handleSetDueDate}
+        value={todoValue.dueDate}
+      />
 
-      <Input type='text' value={text} onChange={handleSetText} />
+      <Input type='text' value={todoValue.text} onChange={handleSetText} />
       <Buttons>
-        {isEdit ? <button onClick={deleteList}>Delete</button> : null}
-        <button onClick={isEdit ? editText : addList}>
-          {isEdit ? 'Edit' : 'Add'}
+        {status === 'edit' ? (
+          <button onClick={deleteList}>Delete</button>
+        ) : null}
+        <button onClick={status === 'edit' ? editValue : addList}>
+          {status === 'edit' ? 'Edit' : 'Add'}
         </button>
       </Buttons>
     </Div>
   );
 };
 
-export default forwardRef(Modal);
+export default Modal;

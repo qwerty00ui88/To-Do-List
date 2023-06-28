@@ -17,7 +17,6 @@ const Div = styled.div`
 
 function App() {
   const [isToday, setIsToday] = useState(true);
-
   return (
     <Div>
       <Header isToday={isToday} setIsToday={setIsToday} />
