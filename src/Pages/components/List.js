@@ -1,7 +1,22 @@
 import styled from 'styled-components';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 const Div = styled.div`
-  padding: 2px;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #f8f8ff85;
+  display: flex;
+`;
+
+const Label = styled.label`
+  flex: 1;
+`;
+
+const Icon = styled.div`
+  svg {
+    pointer-events: none;
+    padding-left: 10px;
+  }
 `;
 
 function List({
@@ -40,13 +55,14 @@ function List({
 
   return (
     <Div>
-      <input type='checkbox'></input>
-      <label onClick={openModalToEdit} id={todoInfo.id}>
-        {todoInfo.text + todoInfo.dueDate}
-      </label>
-      <span id={todoInfo.id} onClick={deleteList}>
-        ❌
-      </span>
+      <input type='checkbox' />
+      <Label onClick={openModalToEdit} id={todoInfo.id}>
+        {todoInfo.text}
+      </Label>
+      <div id={todoInfo.id}>{todoInfo.dueDate}</div>
+      <Icon id={todoInfo.id} onClick={deleteList}>
+        <FontAwesomeIcon icon={faXmark} />
+      </Icon>
     </Div>
   );
 }

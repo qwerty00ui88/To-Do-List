@@ -26,7 +26,7 @@ const Div = styled.div`
   height: 160px;
   border-radius: 20px;
   box-shadow: 42px 38px 67px 8px rgba(168, 168, 168, 0.65);
-  background-color: white;
+  background-color: #d0e7e4b0;
 `;
 
 const Input = styled.input`
@@ -39,6 +39,7 @@ const Input = styled.input`
 
 const Buttons = styled.div`
   > button {
+    margin: 5px;
     width: 50px;
     height: 20px;
     border: 1px solid black;
@@ -151,7 +152,7 @@ const Modal = (
   };
   return (
     <Div ref={ref} className='modal'>
-      <Input type='date' onChange={handleSetDueDate} />
+      {isEdit ? null : <Input type='date' onChange={handleSetDueDate} />}
       <Input type='text' value={text} onChange={handleSetText} />
       <Buttons>
         {isEdit ? <button onClick={deleteList}>Delete</button> : null}
