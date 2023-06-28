@@ -1,21 +1,36 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+
 const Div = styled.div`
   padding: 10px;
   margin: 5px 0;
   background-color: #f8f8ff85;
   display: flex;
-`;
+  width: inherit;
 
-const Label = styled.label`
-  flex: 1;
+  input {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  label {
+    flex: 1;
+    word-break: break-all;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  > div {
+    white-space: nowrap;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const Icon = styled.div`
+  cursor: pointer;
   svg {
     pointer-events: none;
-    padding-left: 10px;
   }
 `;
 
@@ -49,16 +64,16 @@ function List({
   const openModalToEdit = (e) => {
     setIsOpen(true);
     setIsEdit(true);
-    setText(e.target.textContent.slice(0, -10));
+    setText(e.target.textContent);
     setCurrentList(e.target.id);
   };
 
   return (
     <Div>
       <input type='checkbox' />
-      <Label onClick={openModalToEdit} id={todoInfo.id}>
+      <label onClick={openModalToEdit} id={todoInfo.id}>
         {todoInfo.text}
-      </Label>
+      </label>
       <div id={todoInfo.id}>{todoInfo.dueDate}</div>
       <Icon id={todoInfo.id} onClick={deleteList}>
         <FontAwesomeIcon icon={faXmark} />

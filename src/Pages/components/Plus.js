@@ -11,7 +11,7 @@ const Div = styled.div`
 function Plus({ handleSetIsOpen }) {
   return (
     <Div onClick={handleSetIsOpen}>
-      <FontAwesomeIcon icon={faPlus} size='3x' />
+      <FontAwesomeIcon icon={faPlus} size='3x' style={{ color: '#235167' }} />
     </Div>
   );
 }

@@ -17,7 +17,6 @@ const Div = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,8 +24,8 @@ const Div = styled.div`
   width: 300px;
   height: 160px;
   border-radius: 20px;
-  box-shadow: 42px 38px 67px 8px rgba(168, 168, 168, 0.65);
-  background-color: #d0e7e4b0;
+  box-shadow: 32px 38px 67px 8px rgb(15 3 34);
+  background-color: #e8e7e0;
 `;
 
 const Input = styled.input`
@@ -40,7 +39,7 @@ const Input = styled.input`
 const Buttons = styled.div`
   > button {
     margin: 5px;
-    width: 50px;
+    width: 53px;
     height: 20px;
     border: 1px solid black;
     border-radius: 30px;
@@ -150,9 +149,18 @@ const Modal = (
     setIsEdit(false);
     setText('');
   };
+
   return (
     <Div ref={ref} className='modal'>
-      {isEdit ? null : <Input type='date' onChange={handleSetDueDate} />}
+      {isEdit ? null : (
+        <Input
+          id='dateInput'
+          type='date'
+          onChange={handleSetDueDate}
+          value={dueDate}
+        />
+      )}
+
       <Input type='text' value={text} onChange={handleSetText} />
       <Buttons>
         {isEdit ? <button onClick={deleteList}>Delete</button> : null}

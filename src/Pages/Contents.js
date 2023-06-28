@@ -8,15 +8,14 @@ import styled, { css } from 'styled-components';
 import { useState, useEffect } from 'react';
 
 const Div = styled.div`
-  height: 100%;
-  flex-grow: 1;
+  height: 80vh;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 `;
 
 const Main = styled.main`
   flex-grow: 1;
-  height: 100%;
   ${(props) => {
     return (
       props.isEmpty &&
@@ -33,7 +32,13 @@ const Main = styled.main`
 function Contents({ isToday }) {
   const [list, setList] = useState([]);
   const [text, setText] = useState('');
-  const [dueDate, setDueDate] = useState('');
+  const [dueDate, setDueDate] = useState(
+    `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(
+      2,
+      '0'
+    )}-${String(new Date().getDate()).padStart(2, '0')}`
+  );
+
   const [isOpen, setIsOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [currentList, setCurrentList] = useState({});
@@ -81,12 +86,17 @@ function Contents({ isToday }) {
   });
 
   const showList = isToday ? todayList : afterList;
-
   return (
     <Div>
       {!showList.length ? (
         <Main isEmpty={true} onClick={handleSetIsOpen}>
-          <FontAwesomeIcon icon={faPlus} size='3x' />
+          {isOpen ? null : (
+            <FontAwesomeIcon
+              icon={faPlus}
+              size='3x'
+              style={{ color: '#e8e7e0' }}
+            />
+          )}
         </Main>
       ) : (
         <Main isEmpty={false} onClick={handleModalClose}>
