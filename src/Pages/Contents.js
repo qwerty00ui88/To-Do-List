@@ -1,12 +1,15 @@
-import List from './components/List';
-import Plus from './components/Plus';
+import List from '../components/List';
+import Plus from '../components/Plus';
 import styled, { css } from 'styled-components';
 import { useState, useEffect } from 'react';
-import Modal from './components/Modal';
+import Modal from '../components/Modal';
 
 const Main = styled.main`
-  height: 80vh;
+  height: 42vh;
   overflow: auto;
+  border: 2px solid lightgray;
+  background-color: #c0c0c040;
+  margin: 5px;
 
   ${(props) => {
     return (
@@ -33,15 +36,20 @@ function Contents({ isToday }) {
     .slice(0, 10);
 
   const todayList = list.filter((el) => {
-    return el.dueDate === today;
+    return el.dueDate >= today;
   });
 
   const afterList = list.filter((el) => {
-    return el.dueDate !== today;
+    return el.dueDate < today;
   });
 
   const showList = isToday ? todayList : afterList;
-
+  const done = showList.filter((el) => {
+    return el.isChecked;
+  });
+  const notYet = showList.filter((el) => {
+    return !el.isChecked;
+  });
   const handleSetIsOpen = () => {
     setIsOpen(!isOpen);
   };
@@ -66,7 +74,7 @@ function Contents({ isToday }) {
   return (
     <>
       <Main isEmpty={!showList.length}>
-        {showList.map((el, idx) => {
+        {notYet.map((el, idx) => {
           return (
             <List
               key={idx}
@@ -77,9 +85,21 @@ function Contents({ isToday }) {
             />
           );
         })}
-        <Plus handleSetReRender={handleSetReRender} isCenter={!list.length} />
       </Main>
-
+      <Main isEmpty={!showList.length}>
+        {done.map((el, idx) => {
+          return (
+            <List
+              key={idx}
+              todoInfo={el}
+              handleSetReRender={handleSetReRender}
+              isOpen={isOpen}
+              handleSetIsOpen={handleSetIsOpen}
+            />
+          );
+        })}
+      </Main>
+      <Plus handleSetReRender={handleSetReRender} isCenter={!list.length} />
       {isOpen ? (
         <Modal
           todo={{

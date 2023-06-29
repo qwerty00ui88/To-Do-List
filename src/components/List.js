@@ -6,8 +6,8 @@ import { useState } from 'react';
 
 const Div = styled.div`
   padding: 10px;
-  margin: 5px 0;
-  background-color: #f8f8ff85;
+  margin: 7px 7px;
+  background-color: #f8f8ff;
   display: flex;
   width: inherit;
 `;
@@ -25,12 +25,23 @@ const ModalClickDiv = styled.div`
     margin-right: 10px;
     cursor: pointer;
   }
-  > div {
-    white-space: nowrap;
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-  }
+`;
+
+const DueDate = styled.div`
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  width: 120px;
+`;
+
+const DDay = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: left;
+  width: 50px;
+  margin-right: 30px;
+  white-space: nowrap;
 `;
 
 const Icon = styled.div`
@@ -85,6 +96,13 @@ function List({ todoInfo, handleSetReRender }) {
         console.error('Error', err);
       });
   };
+  const today = new Date(
+    new Date().getTime() - new Date().getTimezoneOffset() * 60000
+  )
+    .toISOString()
+    .slice(0, 10);
+  const dDay =
+    (new Date(today) - new Date(todoInfo.dueDate)) / (24 * 60 * 60 * 1000);
 
   return (
     <>
@@ -100,7 +118,8 @@ function List({ todoInfo, handleSetReRender }) {
           }}
         >
           <label>{todoInfo.text}</label>
-          <div>{todoInfo.dueDate}</div>
+          <DueDate>{todoInfo.dueDate}</DueDate>
+          <DDay>{`D${dDay === 0 ? '-' : dDay > 0 ? '+' : ''}${dDay}`}</DDay>
         </ModalClickDiv>
         <Icon onClick={deleteList}>
           <FontAwesomeIcon icon={faXmark} />

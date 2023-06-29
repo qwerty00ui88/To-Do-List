@@ -6,19 +6,14 @@ import { useState } from 'react';
 
 const Div = styled.div`
   position: absolute;
-  bottom: ${(props) => {
-    return props.isCenter ? '50%' : '20px';
-  }};
-  right: ${(props) => {
-    return props.isCenter ? '50%' : '20px';
-  }};
-  transform: ${(props) => {
-    return props.isCenter && 'translate(50%, 50%)';
-  }};
+  top: 20px;
+  right: 20px;
+  background-color: #f8f8ff;
+  padding: 0 5px;
+  border-radius: 5px;
+  margin-right: 5px;
   svg > path {
-    fill: ${(props) => {
-      return props.isCenter ? '#e8e7e0' : '#235167';
-    }};
+    fill: #235167;
   }
 `;
 
