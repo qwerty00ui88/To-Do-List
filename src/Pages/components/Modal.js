@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import useOutsideClick from '../utils/useOutsideClick';
 
 const Div = styled.div`
   position: fixed;
@@ -38,8 +37,6 @@ const Buttons = styled.div`
 
 const Modal = ({ todo, handleSetIsOpen, status, handleSetReRender }) => {
   const [todoValue, setTodoValue] = useState(todo);
-  const outsideRef = useOutsideClick(handleSetIsOpen);
-
   const handleSetDueDate = (e) => {
     setTodoValue({ ...todoValue, dueDate: e.target.value });
   };
@@ -117,7 +114,7 @@ const Modal = ({ todo, handleSetIsOpen, status, handleSetReRender }) => {
   };
 
   return (
-    <Div className='modal' ref={outsideRef}>
+    <Div className='modal'>
       <Input
         id='dateInput'
         type='date'
