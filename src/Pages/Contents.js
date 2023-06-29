@@ -1,8 +1,8 @@
-import List from './components/List';
-import Plus from './components/Plus';
+import List from '../components/List';
+import Plus from '../components/Plus';
 import styled, { css } from 'styled-components';
 import { useState, useEffect } from 'react';
-import Modal from './components/Modal';
+import Modal from '../components/Modal';
 
 const Main = styled.main`
   height: 80vh;
@@ -72,8 +72,6 @@ function Contents({ isToday }) {
               key={idx}
               todoInfo={el}
               handleSetReRender={handleSetReRender}
-              isOpen={isOpen}
-              handleSetIsOpen={handleSetIsOpen}
             />
           );
         })}
