@@ -114,7 +114,6 @@ const CheckBox = styled.label`
   svg {
     width: 13px;
     height: 13px;
-    margin-left: 1px;
   }
 `;
 
