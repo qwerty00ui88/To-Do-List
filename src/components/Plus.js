@@ -43,6 +43,7 @@ const Button = styled.button`
   width: 45px;
   height: 45px;
   margin-right: 5px;
+  cursor: pointer;
   path {
     fill: #3a3f3f;
   }
