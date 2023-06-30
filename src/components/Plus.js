@@ -43,7 +43,15 @@ const Button = styled.button`
   width: 45px;
   height: 45px;
   margin-right: 5px;
-  svg > path {
+  path {
     fill: #3a3f3f;
+  }
+  @media screen and (max-width: 480px) {
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    svg {
+      width: 20px;
+    }
   }
 `;

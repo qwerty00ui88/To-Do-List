@@ -89,7 +89,9 @@ const Div = styled.div`
 const HiddenCheckBox = styled.input`
   display: none;
   + label {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 15px;
     height: 15px;
     border: 1px solid #bcbcbc;
@@ -109,12 +111,13 @@ const HiddenCheckBox = styled.input`
 
 const CheckBox = styled.label`
   svg {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 13px;
     height: 13px;
     margin-left: 1px;
+  }
+  path {
+    width: inherit;
+    height: inherit;
   }
 `;
 
