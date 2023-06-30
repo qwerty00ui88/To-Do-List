@@ -115,10 +115,6 @@ const CheckBox = styled.label`
     height: 13px;
     margin-left: 1px;
   }
-  path {
-    width: inherit;
-    height: inherit;
-  }
 `;
 
 const ModalOpenDiv = styled.div`
