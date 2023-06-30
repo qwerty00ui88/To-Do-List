@@ -2,6 +2,68 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import useOutsideClick from '../utils/useOutsideClick';
 
+const Modal = ({ todo, handleSetIsOpen, status, list, handleSetList }) => {
+  const [todoValue, setTodoValue] = useState(todo);
+  const outsideRef = useOutsideClick(handleSetIsOpen);
+
+  const handleSetDueDate = (e) => {
+    setTodoValue({ ...todoValue, dueDate: e.target.value });
+  };
+
+  const handleSetText = (e) => {
+    setTodoValue({ ...todoValue, text: e.target.value });
+  };
+
+  const addList = () => {
+    handleSetList([...list, todoValue]);
+    handleSetIsOpen();
+  };
+
+  const editValue = () => {
+    const copy = list.slice();
+    const newList = copy.map((el) => {
+      if (el.id === todoValue.id) {
+        el.text = todoValue.text;
+        el.dueDate = todoValue.dueDate;
+      }
+      return el;
+    });
+    handleSetList(newList);
+    handleSetIsOpen();
+  };
+
+  const deleteList = () => {
+    const copy = list.slice();
+    const findIdx = copy.findIndex((el) => el.id === todoValue.id);
+    copy.splice(findIdx, 1);
+    handleSetList(copy);
+    handleSetIsOpen();
+  };
+
+  return (
+    <Div className='modal' ref={outsideRef}>
+      <Input
+        id='dateInput'
+        type='date'
+        onChange={handleSetDueDate}
+        value={todoValue.dueDate}
+      />
+
+      <Input type='text' value={todoValue.text} onChange={handleSetText} />
+      <Buttons>
+        {status === 'edit' ? (
+          <button onClick={deleteList}>Delete</button>
+        ) : null}
+        <button onClick={status === 'edit' ? editValue : addList}>
+          {status === 'edit' ? 'Edit' : 'Add'}
+        </button>
+      </Buttons>
+    </Div>
+  );
+};
+
+export default Modal;
+
 const Div = styled.div`
   position: fixed;
   top: 50%;
@@ -35,107 +97,3 @@ const Buttons = styled.div`
     border-radius: 30px;
   }
 `;
-
-const Modal = ({ todo, handleSetIsOpen, status, handleSetReRender }) => {
-  const [todoValue, setTodoValue] = useState(todo);
-  const outsideRef = useOutsideClick(handleSetIsOpen);
-
-  const handleSetDueDate = (e) => {
-    setTodoValue({ ...todoValue, dueDate: e.target.value });
-  };
-
-  const handleSetText = (e) => {
-    setTodoValue({ ...todoValue, text: e.target.value });
-  };
-
-  const addList = () => {
-    fetch(`${process.env.REACT_APP_URL}/todos/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(todoValue),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw Error('could not fetch the data for that resource');
-        }
-        return res.json();
-      })
-      .then(() => {
-        handleSetReRender();
-        handleSetIsOpen();
-      })
-      .catch((err) => {
-        console.error('Error', err);
-      });
-  };
-
-  const editValue = () => {
-    fetch(`${process.env.REACT_APP_URL}/todos/${todoValue.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        text: todoValue.text,
-        dueDate: todoValue.dueDate,
-      }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw Error('could not fetch the data for that resource');
-        }
-        return res.json();
-      })
-      .then(() => {
-        handleSetReRender();
-        handleSetIsOpen();
-      })
-      .catch((err) => {
-        console.error('Error', err);
-      });
-  };
-
-  const deleteList = () => {
-    fetch(`${process.env.REACT_APP_URL}/todos/${todoValue.id}`, {
-      method: 'DELETE',
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw Error('could not fetch the data for that resource');
-        }
-        return res.json();
-      })
-      .then((data) => {
-        handleSetReRender();
-        handleSetIsOpen();
-      })
-      .catch((err) => {
-        console.error('Error', err);
-      });
-  };
-
-  return (
-    <Div className='modal' ref={outsideRef}>
-      <Input
-        id='dateInput'
-        type='date'
-        onChange={handleSetDueDate}
-        value={todoValue.dueDate}
-      />
-
-      <Input type='text' value={todoValue.text} onChange={handleSetText} />
-      <Buttons>
-        {status === 'edit' ? (
-          <button onClick={deleteList}>Delete</button>
-        ) : null}
-        <button onClick={status === 'edit' ? editValue : addList}>
-          {status === 'edit' ? 'Edit' : 'Add'}
-        </button>
-      </Buttons>
-    </Div>
-  );
-};
-
-export default Modal;

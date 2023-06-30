@@ -1,57 +1,11 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import Modal from './Modal';
 import { useState } from 'react';
 
-const Div = styled.div`
-  padding: 10px;
-  margin: 7px 7px;
-  background-color: ${(props) => {
-    return props.isChecked ? '#878787d1' : '#f8f8ff';
-  }};
-  display: flex;
-  width: inherit;
-  border-radius: 5px;
-`;
-
-const ModalClickDiv = styled.div`
-  flex: 1;
-  display: flex;
-  input {
-    margin-right: 10px;
-    cursor: pointer;
-  }
-  label {
-    flex: 1;
-    word-break: break-all;
-    margin-right: 10px;
-    cursor: pointer;
-  }
-`;
-
-const DueDate = styled.div`
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  text-align: right;
-  width: 120px;
-`;
-
-const DDay = styled.div`
-  display: flex;
-  align-items: center;
-  text-align: left;
-  width: 50px;
-  margin-right: 30px;
-  white-space: nowrap;
-`;
-
-const Icon = styled.div`
-  cursor: pointer;
-`;
-
-function List({ todoInfo, handleSetReRender, id }) {
+function List({ id, todoInfo, list, handleSetList }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSetIsOpen = () => {
@@ -60,45 +14,20 @@ function List({ todoInfo, handleSetReRender, id }) {
 
   const deleteList = (e) => {
     e.stopPropagation();
-    fetch(`${process.env.REACT_APP_URL}/todos/${todoInfo.id}`, {
-      method: 'DELETE',
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw Error('could not fetch the data for that resource');
-        }
-        return res.json();
-      })
-      .then(() => {
-        handleSetReRender();
-        isOpen && handleSetIsOpen();
-      })
-      .catch((err) => {
-        console.error('Error', err);
-      });
+    const copy = list.slice();
+    const findIdx = copy.findIndex((el) => el.id === todoInfo.id);
+    copy.splice(findIdx, 1);
+    handleSetList(copy);
+    isOpen && handleSetIsOpen();
   };
 
   const handleCheck = () => {
-    fetch(`${process.env.REACT_APP_URL}/todos/${todoInfo.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ isChecked: !todoInfo.isChecked }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw Error('could not fetch the data for that resource');
-        }
-        return res.json();
-      })
-      .then(() => {
-        handleSetReRender();
-      })
-      .catch((err) => {
-        console.error('Error', err);
-      });
+    const copy = list.slice();
+    const findIdx = copy.findIndex((el) => el.id === todoInfo.id);
+    const deleted = copy.splice(findIdx, 1);
+    handleSetList([...copy, { ...deleted[0], isChecked: !todoInfo.isChecked }]);
   };
+
   const today = new Date(
     new Date().getTime() - new Date().getTimezoneOffset() * 60000
   )
@@ -117,21 +46,19 @@ function List({ todoInfo, handleSetReRender, id }) {
         id={id}
         isChecked={todoInfo.isChecked}
         draggable={true}
-        onDragStart={(e) => {
-          drag(e);
-        }}
+        onDragStart={drag}
       >
         <input
+          id={id}
           type='checkbox'
           checked={todoInfo.isChecked}
           onChange={handleCheck}
         />
-        <ModalClickDiv
-          onClick={() => {
-            handleSetIsOpen();
-          }}
-        >
-          <label>{todoInfo.text}</label>
+        <label htmlFor={id} onClick={handleCheck}>
+          <FontAwesomeIcon icon={faCheck} />
+        </label>
+        <ModalClickDiv onClick={handleSetIsOpen}>
+          <label htmlFor={id}>{todoInfo.text}</label>
           <DueDate>{todoInfo.dueDate}</DueDate>
           <DDay>{`D${dDay === 0 ? '-' : dDay > 0 ? '+' : ''}${dDay}`}</DDay>
         </ModalClickDiv>
@@ -142,9 +69,10 @@ function List({ todoInfo, handleSetReRender, id }) {
       {isOpen ? (
         <Modal
           todo={todoInfo}
+          handleSetList={handleSetList}
           handleSetIsOpen={handleSetIsOpen}
           status='edit'
-          handleSetReRender={handleSetReRender}
+          list={list}
         />
       ) : null}
     </div>
@@ -152,3 +80,77 @@ function List({ todoInfo, handleSetReRender, id }) {
 }
 
 export default List;
+
+const Div = styled.div`
+  font-weight: 600;
+  padding: 10px;
+  margin: 7px 7px;
+  background-color: ${(props) => {
+    return props.isChecked ? '#878787d1' : '#f8f8ff';
+  }};
+  display: flex;
+  width: inherit;
+  border-radius: 5px;
+  > input {
+    display: none;
+  }
+  > input + label {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #bcbcbc;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  > input:checked + label {
+    background-color: #666666;
+    svg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 13px;
+      height: 13px;
+      margin-left: 1px;
+      path {
+        fill: #ffffff;
+      }
+    }
+  }
+`;
+
+const ModalClickDiv = styled.div`
+  flex: 1;
+  display: flex;
+  label {
+    flex: 1;
+    word-break: break-all;
+    margin-right: 10px;
+    font-size: medium;
+    cursor: pointer;
+  }
+`;
+
+const DueDate = styled.div`
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  width: 120px;
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
+`;
+
+const DDay = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: left;
+  width: 50px;
+  margin-right: 30px;
+  white-space: nowrap;
+  color: #c01a1a;
+`;
+
+const Icon = styled.div`
+  cursor: pointer;
+`;

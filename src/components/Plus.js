@@ -4,34 +4,22 @@ import styled from 'styled-components';
 import Modal from './Modal';
 import { useState } from 'react';
 
-const Div = styled.div`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: #f8f8ff;
-  padding: 0 5px;
-  border-radius: 5px;
-  margin-right: 5px;
-  svg > path {
-    fill: #3a3f3f;
-  }
-`;
-
-function Plus({ handleSetReRender }) {
+function Plus({ list, handleSetList }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSetIsOpen = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <>
-      <Div
+      <Button
         onClick={() => {
           handleSetIsOpen();
         }}
       >
         <FontAwesomeIcon icon={faPlus} size='3x' />
-      </Div>
+      </Button>
       {isOpen ? (
         <Modal
           todo={{
@@ -46,8 +34,9 @@ function Plus({ handleSetReRender }) {
             isChecked: false,
           }}
           status='add'
+          handleSetList={handleSetList}
           handleSetIsOpen={handleSetIsOpen}
-          handleSetReRender={handleSetReRender}
+          list={list}
         />
       ) : null}
     </>
@@ -55,3 +44,19 @@ function Plus({ handleSetReRender }) {
 }
 
 export default Plus;
+
+const Button = styled.button`
+  position: absolute;
+  top: 19px;
+  right: 20px;
+  background-color: #e8e7e0;
+  padding: 0 5px;
+  border: 0;
+  border-radius: 5px;
+  width: 45px;
+  height: 45px;
+  margin-right: 5px;
+  svg > path {
+    fill: #3a3f3f;
+  }
+`;
