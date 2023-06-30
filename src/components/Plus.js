@@ -3,6 +3,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import Modal from './Modal';
 import { useState } from 'react';
+import { defaultData } from '../utils/defaultData';
 
 function Plus({ list, handleSetList }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,30 +14,16 @@ function Plus({ list, handleSetList }) {
 
   return (
     <>
-      <Button
-        onClick={() => {
-          handleSetIsOpen();
-        }}
-      >
+      <Button onClick={handleSetIsOpen}>
         <FontAwesomeIcon icon={faPlus} size='3x' />
       </Button>
       {isOpen ? (
         <Modal
-          todo={{
-            id: new Date().toISOString(),
-            text: '',
-            dueDate: `${new Date().getFullYear()}-${String(
-              new Date().getMonth() + 1
-            ).padStart(2, '0')}-${String(new Date().getDate()).padStart(
-              2,
-              '0'
-            )}`,
-            isChecked: false,
-          }}
+          todo={defaultData(new Date())}
           status='add'
+          list={list}
           handleSetList={handleSetList}
           handleSetIsOpen={handleSetIsOpen}
-          list={list}
         />
       ) : null}
     </>
@@ -47,7 +34,7 @@ export default Plus;
 
 const Button = styled.button`
   position: absolute;
-  top: 19px;
+  top: 20px;
   right: 20px;
   background-color: #e8e7e0;
   padding: 0 5px;

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import useOutsideClick from '../utils/useOutsideClick';
-
-const Modal = ({ todo, handleSetIsOpen, status, list, handleSetList }) => {
+import { deleteList } from '../utils/deleteList';
+const Modal = ({ todo, status, list, handleSetList, handleSetIsOpen }) => {
   const [todoValue, setTodoValue] = useState(todo);
   const outsideRef = useOutsideClick(handleSetIsOpen);
 
@@ -32,14 +32,6 @@ const Modal = ({ todo, handleSetIsOpen, status, list, handleSetList }) => {
     handleSetIsOpen();
   };
 
-  const deleteList = () => {
-    const copy = list.slice();
-    const findIdx = copy.findIndex((el) => el.id === todoValue.id);
-    copy.splice(findIdx, 1);
-    handleSetList(copy);
-    handleSetIsOpen();
-  };
-
   return (
     <Div className='modal' ref={outsideRef}>
       <Input
@@ -52,7 +44,13 @@ const Modal = ({ todo, handleSetIsOpen, status, list, handleSetList }) => {
       <Input type='text' value={todoValue.text} onChange={handleSetText} />
       <Buttons>
         {status === 'edit' ? (
-          <button onClick={deleteList}>Delete</button>
+          <button
+            onClick={() => {
+              deleteList(list, todoValue, handleSetList);
+            }}
+          >
+            Delete
+          </button>
         ) : null}
         <button onClick={status === 'edit' ? editValue : addList}>
           {status === 'edit' ? 'Edit' : 'Add'}
