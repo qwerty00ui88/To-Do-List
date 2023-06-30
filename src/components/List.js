@@ -79,7 +79,7 @@ const Div = styled.div`
   padding: 10px;
   margin: 7px 7px;
   background-color: ${(props) => {
-    return props.isChecked ? '#878787d1' : '#f8f8ff';
+    return props.isChecked ? '#b2b2b2' : '#fae8d5';
   }};
   display: flex;
   width: inherit;
@@ -96,15 +96,16 @@ const HiddenCheckBox = styled.input`
     height: 15px;
     border: 1px solid #bcbcbc;
     margin-right: 10px;
+    background-color: white;
     cursor: pointer;
     path {
       fill: transparent;
     }
   }
+
   :checked + label {
-    background-color: #666666;
     path {
-      fill: #ffffff;
+      fill: currentColor;
     }
   }
 `;

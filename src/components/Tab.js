@@ -47,11 +47,13 @@ const Li = styled.li`
   list-style: none;
   min-width: 120px;
   width: 18%;
-  color: #3a3f3f;
   border-radius: 5px 5px 0 0;
   cursor: pointer;
+  color: ${(props) => {
+    return props.isClicked ? '#f8f8ff' : '#3a3f3f';
+  }};
   background-color: ${(props) => {
-    return props.isClicked ? '#e8e7e0' : 'gray';
+    return props.isClicked ? 'hsl(5.66deg 69.43% 55.1%)' : '#b2b2b2';
   }};
   height: ${(props) => {
     return props.isClicked ? '50px' : '40px';

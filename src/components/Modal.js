@@ -74,8 +74,8 @@ const Div = styled.div`
   width: 300px;
   height: 160px;
   border-radius: 20px;
-  box-shadow: 32px 38px 67px 8px rgb(15 3 34);
-  background-color: #e8e7e0;
+  box-shadow: 5px 5px 10px 0px #989898;
+  background-color: #f8f8f8;
 `;
 
 const Input = styled.input`

@@ -98,7 +98,7 @@ export default Contents;
 const Section = styled.section`
   height: 42vh;
   overflow: auto;
-  border: 2px solid lightgray;
-  background-color: #c0c0c040;
+  border: 1px solid lightgray;
+  background-color: #fdfdfd;
   margin: 5px;
 `;

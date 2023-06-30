@@ -36,7 +36,7 @@ const Button = styled.button`
   position: absolute;
   top: 20px;
   right: 20px;
-  background-color: #e8e7e0;
+  background-color: transparent;
   padding: 0 5px;
   border: 0;
   border-radius: 5px;
@@ -46,12 +46,23 @@ const Button = styled.button`
   path {
     fill: #3a3f3f;
   }
+  :hover {
+    path {
+      fill: hsl(5.66deg 69.43% 55.1%);
+    }
+  }
+  @media screen and (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+    svg {
+      width: 25px;
+    }
+  }
   @media screen and (max-width: 480px) {
     width: 35px;
     height: 35px;
-    background-color: transparent;
     svg {
-      width: 20px;
+      width: 23px;
     }
   }
 `;
