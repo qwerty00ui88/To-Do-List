@@ -51,7 +51,7 @@ const Icon = styled.div`
   cursor: pointer;
 `;
 
-function List({ todoInfo, handleSetReRender }) {
+function List({ todoInfo, handleSetReRender, id }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSetIsOpen = () => {
@@ -107,9 +107,20 @@ function List({ todoInfo, handleSetReRender }) {
   const dDay =
     (new Date(today) - new Date(todoInfo.dueDate)) / (24 * 60 * 60 * 1000);
 
+  function drag(dragevent) {
+    dragevent.dataTransfer.setData('storm-diagram-node', dragevent.target.id);
+  }
+
   return (
-    <>
-      <Div isChecked={todoInfo.isChecked}>
+    <div>
+      <Div
+        id={id}
+        isChecked={todoInfo.isChecked}
+        draggable={true}
+        onDragStart={(e) => {
+          drag(e);
+        }}
+      >
         <input
           type='checkbox'
           checked={todoInfo.isChecked}
@@ -136,7 +147,7 @@ function List({ todoInfo, handleSetReRender }) {
           handleSetReRender={handleSetReRender}
         />
       ) : null}
-    </>
+    </div>
   );
 }
 

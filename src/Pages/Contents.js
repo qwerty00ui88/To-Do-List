@@ -74,30 +74,73 @@ function Contents({ isToday }) {
       });
   }, [reRender]);
 
+  function allowDrop(allowdropevent) {
+    allowdropevent.preventDefault();
+  }
+
+  function drop(dropevent) {
+    dropevent.preventDefault();
+    var data = dropevent.dataTransfer.getData('storm-diagram-node');
+
+    fetch(`${process.env.REACT_APP_URL}/todos/${data}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        isChecked: dropevent.currentTarget.id !== 'div1',
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw Error('could not fetch the data for that resource');
+        }
+        return res.json();
+      })
+      .then(() => {
+        handleSetReRender();
+      })
+      .catch((err) => {
+        console.error('Error', err);
+      });
+  }
+
   return (
     <>
-      <Main isEmpty={!showList.length}>
+      <Main
+        isEmpty={!showList.length}
+        id='div1'
+        onDrop={(e) => {
+          drop(e);
+        }}
+        onDragOver={(e) => {
+          allowDrop(e);
+        }}
+      >
         {notYet.map((el, idx) => {
           return (
             <List
+              id={el.id}
               key={idx}
               todoInfo={el}
               handleSetReRender={handleSetReRender}
-              isOpen={isOpen}
-              handleSetIsOpen={handleSetIsOpen}
             />
           );
         })}
       </Main>
-      <Main isEmpty={!showList.length}>
+      <Main
+        isEmpty={!showList.length}
+        id='div2'
+        onDrop={drop}
+        onDragOver={allowDrop}
+      >
         {done.map((el, idx) => {
           return (
             <List
+              id={el.id}
               key={idx}
               todoInfo={el}
               handleSetReRender={handleSetReRender}
-              isOpen={isOpen}
-              handleSetIsOpen={handleSetIsOpen}
             />
           );
         })}
