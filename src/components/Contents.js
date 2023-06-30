@@ -49,6 +49,7 @@ function Contents({ clicked, list, handleSetList }) {
 
   useEffect(() => {
     handleSetList(JSON.parse(localStorage.getItem('todoList')));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   window.addEventListener('beforeunload', () => {

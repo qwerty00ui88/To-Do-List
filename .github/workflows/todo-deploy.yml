@@ -25,10 +25,6 @@ jobs:
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
-      - name: Access to secrets
-        run: echo "REACT_APP_URL=$REACT_APP_URL" > .env
-        env:
-          REACT_APP_URL: ${{ secrets.TODO_REACT_URL }}
       - name: Build
         run: npm run build
       - name: Deploy
