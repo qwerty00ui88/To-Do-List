@@ -4,6 +4,7 @@ const H1 = styled.h1`
   margin: 0 0 18px;
   color: #f8f8ff;
   margin-left: 5px;
+  cursor: pointer;
 `;
 function Header({ isToday, setIsToday }) {
   const handleSetIsToday = () => {

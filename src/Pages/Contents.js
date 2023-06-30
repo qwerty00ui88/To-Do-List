@@ -44,12 +44,15 @@ function Contents({ isToday }) {
   });
 
   const showList = isToday ? todayList : afterList;
+
   const done = showList.filter((el) => {
     return el.isChecked;
   });
+
   const notYet = showList.filter((el) => {
     return !el.isChecked;
   });
+
   const handleSetIsOpen = () => {
     setIsOpen(!isOpen);
   };
@@ -99,7 +102,7 @@ function Contents({ isToday }) {
           );
         })}
       </Main>
-      <Plus handleSetReRender={handleSetReRender} isCenter={!list.length} />
+      <Plus handleSetReRender={handleSetReRender} />
       {isOpen ? (
         <Modal
           todo={{

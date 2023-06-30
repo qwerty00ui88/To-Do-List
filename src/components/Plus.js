@@ -13,11 +13,11 @@ const Div = styled.div`
   border-radius: 5px;
   margin-right: 5px;
   svg > path {
-    fill: #235167;
+    fill: #3a3f3f;
   }
 `;
 
-function Plus({ handleSetReRender, isCenter }) {
+function Plus({ handleSetReRender }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSetIsOpen = () => {
@@ -29,7 +29,6 @@ function Plus({ handleSetReRender, isCenter }) {
         onClick={() => {
           handleSetIsOpen();
         }}
-        isCenter={isCenter}
       >
         <FontAwesomeIcon icon={faPlus} size='3x' />
       </Div>

@@ -7,9 +7,12 @@ import { useState } from 'react';
 const Div = styled.div`
   padding: 10px;
   margin: 7px 7px;
-  background-color: #f8f8ff;
+  background-color: ${(props) => {
+    return props.isChecked ? '#878787d1' : '#f8f8ff';
+  }};
   display: flex;
   width: inherit;
+  border-radius: 5px;
 `;
 
 const ModalClickDiv = styled.div`
@@ -106,7 +109,7 @@ function List({ todoInfo, handleSetReRender }) {
 
   return (
     <>
-      <Div>
+      <Div isChecked={todoInfo.isChecked}>
         <input
           type='checkbox'
           checked={todoInfo.isChecked}
