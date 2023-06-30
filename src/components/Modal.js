@@ -91,7 +91,7 @@ const Buttons = styled.div`
     margin: 5px;
     width: 53px;
     height: 20px;
-    border: 1px solid black;
+    border: 1px solid #b2b2b2;
     border-radius: 30px;
   }
 `;
