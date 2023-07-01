@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-
-function Tab({ handleClicked, clicked, children }) {
+import Plus from './Plus';
+function Tab({ handleClicked, clicked, list, handleSetList, children }) {
   const tabMenu = [
     { id: 'todo', title: 'To Do' },
     { id: 'closed', title: 'Closed' },
@@ -23,6 +23,9 @@ function Tab({ handleClicked, clicked, children }) {
             </Li>
           );
         })}
+        <ButtonLi>
+          <Plus list={list} handleSetList={handleSetList} />
+        </ButtonLi>
       </Ul>
       {children}
     </>
@@ -40,11 +43,13 @@ const Ul = styled.ul`
   @media screen and (max-width: 768px) {
     font-size: 1.5rem;
   }
+  li {
+    list-style: none;
+  }
 `;
 
 const Li = styled.li`
   text-align: center;
-  list-style: none;
   min-width: 120px;
   width: 18%;
   border-radius: 5px 5px 0 0;
@@ -69,4 +74,10 @@ const Li = styled.li`
       return props.isClicked ? '0' : '5px';
     }};
   }
+`;
+
+const ButtonLi = styled.li`
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 `;

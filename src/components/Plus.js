@@ -33,16 +33,12 @@ function Plus({ list, handleSetList }) {
 export default Plus;
 
 const Button = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 11.5%;
   background-color: transparent;
-  padding: 0 5px;
+  padding: 0;
   border: 0;
   border-radius: 5px;
   width: 45px;
   height: 45px;
-  margin-right: 5px;
   cursor: pointer;
   path {
     fill: #333d4b;
@@ -54,7 +50,6 @@ const Button = styled.button`
   }
 
   @media screen and (max-width: 768px) {
-    right: 12px;
     width: 40px;
     height: 40px;
     svg {

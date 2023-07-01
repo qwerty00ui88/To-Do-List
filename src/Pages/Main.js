@@ -2,7 +2,6 @@ import Tab from '../components/Tab';
 import Contents from '../components/Contents';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Plus from '../components/Plus';
 
 function Main() {
   const [list, setList] = useState([]);
@@ -28,8 +27,12 @@ function Main() {
 
   return (
     <MainContent>
-      <Plus list={list} handleSetList={handleSetList} />
-      <Tab handleClicked={handleClicked} clicked={clicked}>
+      <Tab
+        handleClicked={handleClicked}
+        clicked={clicked}
+        list={list}
+        handleSetList={handleSetList}
+      >
         <Contents clicked={clicked} list={list} handleSetList={handleSetList} />
       </Tab>
     </MainContent>
@@ -41,12 +44,13 @@ export default Main;
 const MainContent = styled.main`
   display: flex;
   flex-direction: column;
-  margin: 0;
+  justify-content: center;
   padding: 20px;
   min-height: 100vh;
   min-width: 360px;
   box-sizing: border-box;
   width: 80vw;
+  height: 80vh;
   margin: auto;
   @media screen and (max-width: 768px) {
     width: 100vw;
