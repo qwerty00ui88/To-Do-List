@@ -114,6 +114,7 @@ const Div = styled.div`
 
 const Buttons = styled.div`
   > button {
+    padding: 0;
     margin: 5px;
     width: 70px;
     height: 25px;
