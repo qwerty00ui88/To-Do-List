@@ -34,14 +34,19 @@ const Modal = ({ todo, status, list, handleSetList, handleSetIsOpen }) => {
 
   return (
     <Div className='modal' ref={outsideRef}>
-      <Input
+      <input
         id='dateInput'
         type='date'
         onChange={handleSetDueDate}
         value={todoValue.dueDate}
       />
 
-      <Input type='text' value={todoValue.text} onChange={handleSetText} />
+      <textarea
+        id='textInput'
+        type='text'
+        value={todoValue.text}
+        onChange={handleSetText}
+      />
       <Buttons>
         {status === 'edit' ? (
           <button
@@ -71,27 +76,56 @@ const Div = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 300px;
-  height: 160px;
-  border-radius: 20px;
+  width: 450px;
+  height: 300px;
+  border-radius: 10px;
   box-shadow: 5px 5px 10px 0px #989898;
   background-color: #f8f8f8;
-`;
 
-const Input = styled.input`
-  display: block;
-  border: none;
-  background-color: rgb(220, 220, 220);
-  padding: 5px;
-  margin-bottom: 3px;
+  textarea {
+    height: 100px;
+  }
+
+  input,
+  textarea {
+    display: block;
+    border: none;
+    background-color: rgb(220, 220, 220);
+    padding: 5px;
+    margin-bottom: 3px;
+    width: 250px;
+    :focus {
+      outline: none;
+      border: 1px solid hsl(5.66deg 69.43% 65.1%);
+      box-shadow: 0px 0px 3px 2px hsl(5.66deg 69.43% 75.1%);
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 300px;
+    height: 160px;
+    input,
+    textarea {
+      height: 20px;
+      width: 150px;
+    }
+  }
 `;
 
 const Buttons = styled.div`
   > button {
     margin: 5px;
-    width: 53px;
-    height: 20px;
+    width: 70px;
+    height: 25px;
     border: 1px solid #b2b2b2;
     border-radius: 30px;
+    :hover {
+      background-color: hsl(5.66deg 69.43% 55.1%);
+      color: #fdfdfd;
+    }
+    @media screen and (max-width: 480px) {
+      width: 53px;
+      height: 20px;
+    }
   }
 `;

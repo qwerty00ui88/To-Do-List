@@ -35,7 +35,7 @@ export default Plus;
 const Button = styled.button`
   position: absolute;
   top: 20px;
-  right: 20px;
+  right: 11.5%;
   background-color: transparent;
   padding: 0 5px;
   border: 0;
@@ -52,13 +52,16 @@ const Button = styled.button`
       fill: hsl(5.66deg 69.43% 55.1%);
     }
   }
+
   @media screen and (max-width: 768px) {
+    right: 12px;
     width: 40px;
     height: 40px;
     svg {
       width: 25px;
     }
   }
+
   @media screen and (max-width: 480px) {
     width: 35px;
     height: 35px;

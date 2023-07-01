@@ -46,5 +46,9 @@ const MainContent = styled.main`
   min-height: 100vh;
   min-width: 360px;
   box-sizing: border-box;
-  background: #f9f9f9;
+  width: 80vw;
+  margin: auto;
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+  }
 `;
