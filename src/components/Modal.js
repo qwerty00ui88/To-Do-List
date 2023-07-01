@@ -122,6 +122,7 @@ const Buttons = styled.div`
     height: 25px;
     border: 1px solid #b2b2b2;
     border-radius: 30px;
+    color: #333d4b;
     :hover {
       background-color: hsl(218.35deg 87.39% 56.47%);
       color: #fdfdfd;
