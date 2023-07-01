@@ -78,12 +78,18 @@ const Div = styled.div`
   font-weight: 600;
   padding: 10px;
   margin: 7px 7px;
-  background-color: ${(props) => {
-    return props.isChecked ? '#b2b2b2' : '#fae8d5';
-  }};
   display: flex;
   width: inherit;
   border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px #b2b2b2c2;
+  background-color: ${(props) => {
+    return props.isChecked ? '#b2b2b2' : '#fae8d5';
+  }};
+  :hover {
+    background-color: ${(props) => {
+      return props.isChecked ? '#8f8d8d' : '#fcdbb8';
+    }};
+  }
 `;
 
 const HiddenCheckBox = styled.input`
