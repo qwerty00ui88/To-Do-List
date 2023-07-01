@@ -94,6 +94,8 @@ const Div = styled.div`
     padding: 5px;
     margin-bottom: 3px;
     width: 250px;
+    border-radius: 3px;
+    color: #333d4b;
     :focus {
       outline: none;
       border: 1px solid #abcdf8;
