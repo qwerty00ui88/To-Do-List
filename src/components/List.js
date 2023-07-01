@@ -89,6 +89,11 @@ const Div = styled.div`
     background-color: ${(props) => {
       return props.isChecked ? '#8f8d8d' : '#fcdbb8';
     }};
+    * {
+      color: ${(props) => {
+        return props.isChecked && 'white';
+      }};
+    }
   }
 `;
 
