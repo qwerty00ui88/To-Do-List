@@ -96,8 +96,8 @@ const Div = styled.div`
     width: 250px;
     :focus {
       outline: none;
-      border: 1px solid hsl(5.66deg 69.43% 65.1%);
-      box-shadow: 0px 0px 3px 2px hsl(5.66deg 69.43% 75.1%);
+      border: 1px solid #abcdf8;
+      box-shadow: 0px 0px 3px 2px #d0e4fd;
     }
   }
 
@@ -106,7 +106,7 @@ const Div = styled.div`
     height: 160px;
     input,
     textarea {
-      height: 20px;
+      height: 15px;
       width: 150px;
     }
   }
@@ -121,7 +121,7 @@ const Buttons = styled.div`
     border: 1px solid #b2b2b2;
     border-radius: 30px;
     :hover {
-      background-color: hsl(5.66deg 69.43% 55.1%);
+      background-color: hsl(218.35deg 87.39% 56.47%);
       color: #fdfdfd;
     }
     @media screen and (max-width: 480px) {

@@ -45,11 +45,11 @@ const Button = styled.button`
   margin-right: 5px;
   cursor: pointer;
   path {
-    fill: #3a3f3f;
+    fill: #333d4b;
   }
   :hover {
     path {
-      fill: hsl(5.66deg 69.43% 55.1%);
+      fill: hsl(218.35deg 87.39% 56.47%);
     }
   }
 

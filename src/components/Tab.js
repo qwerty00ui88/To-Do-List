@@ -50,10 +50,10 @@ const Li = styled.li`
   border-radius: 5px 5px 0 0;
   cursor: pointer;
   color: ${(props) => {
-    return props.isClicked ? '#f8f8ff' : '#3a3f3f';
+    return props.isClicked ? '#f8f8ff' : '#333d4b';
   }};
   background-color: ${(props) => {
-    return props.isClicked ? 'hsl(5.66deg 69.43% 55.1%)' : '#b2b2b2';
+    return props.isClicked ? 'hsl(218.35deg 87.39% 56.47%)' : '#b3b9c1';
   }};
   height: ${(props) => {
     return props.isClicked ? '50px' : '40px';

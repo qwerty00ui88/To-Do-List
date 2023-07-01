@@ -76,24 +76,27 @@ export default List;
 
 const Div = styled.div`
   font-weight: 600;
-  padding: 10px;
+  padding: 12px;
   margin: 7px 7px;
   display: flex;
   width: inherit;
   border-radius: 5px;
   box-shadow: 1px 1px 1px 1px #b2b2b2c2;
   background-color: ${(props) => {
-    return props.isChecked ? '#b2b2b2' : '#fae8d5';
+    return props.isChecked ? '#b3b9c1' : '#d0e4fd';
   }};
   :hover {
     background-color: ${(props) => {
-      return props.isChecked ? '#8f8d8d' : '#fcdbb8';
+      return props.isChecked ? '#8f8d8d' : '#abcdf8';
     }};
-    * {
+    span:first-child {
       color: ${(props) => {
         return props.isChecked && 'white';
       }};
     }
+  }
+  @media screen and (max-width: 480px) {
+    padding: 10px;
   }
 `;
 
@@ -134,6 +137,7 @@ const ModalOpenDiv = styled.div`
 `;
 
 const Text = styled.span`
+  color: #333d4b;
   flex: 1;
   word-break: break-all;
   margin-right: 10px;
@@ -160,10 +164,13 @@ const DDay = styled.span`
   margin-right: 30px;
   white-space: nowrap;
   color: ${(props) => {
-    return props.isChecked ? 'black' : '#c01a1a';
+    return props.isChecked ? '#333d4b' : '#e35050';
   }};
 `;
 
 const Icon = styled.div`
   cursor: pointer;
+  path {
+    fill: #333d4b;
+  }
 `;
