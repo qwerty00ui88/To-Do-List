@@ -1,6 +1,6 @@
 import List from './List';
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Modal from './Modal';
 import { todayDate } from '../utils/todayDate';
 import { defaultData } from '../utils/defaultData';
@@ -46,15 +46,6 @@ function Contents({ clicked, list, handleSetList }) {
   function allowDrop(allowdropevent) {
     allowdropevent.preventDefault();
   }
-
-  useEffect(() => {
-    handleSetList(JSON.parse(localStorage.getItem('todoList')));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  window.addEventListener('beforeunload', () => {
-    localStorage.setItem('todoList', JSON.stringify(list));
-  });
 
   return (
     <>
