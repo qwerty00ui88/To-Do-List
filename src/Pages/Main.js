@@ -20,9 +20,11 @@ function Main() {
     handleSetList(JSON.parse(localStorage.getItem('todoList')) || []);
   }, []);
 
-  window.addEventListener('beforeunload', () => {
-    localStorage.setItem('view', JSON.stringify(clicked));
-    localStorage.setItem('todoList', JSON.stringify(list));
+  window.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      localStorage.setItem('view', JSON.stringify(clicked));
+      localStorage.setItem('todoList', JSON.stringify(list));
+    }
   });
 
   return (
