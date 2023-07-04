@@ -7,6 +7,8 @@ import { defaultData } from '../utils/defaultData';
 
 function Contents({ clicked, list, handleSetList }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [touchId, setTouchId] = useState(null);
+
   const showList = list.filter((el) =>
     clicked === 'todo' ? el.dueDate >= todayDate : el.dueDate < todayDate
   );
@@ -30,6 +32,10 @@ function Contents({ clicked, list, handleSetList }) {
     setIsOpen(!isOpen);
   };
 
+  const handleSetTouchId = (id) => {
+    setTouchId(id);
+  };
+
   function drop(dropevent) {
     dropevent.preventDefault();
     const targetedItem = dropevent.currentTarget;
@@ -47,6 +53,16 @@ function Contents({ clicked, list, handleSetList }) {
     allowdropevent.preventDefault();
   }
 
+  function touchEnd() {
+    const copy = list.slice();
+    const findIdx = copy.findIndex((el) => el.id === touchId);
+    const deleted = copy.splice(findIdx, 1);
+    handleSetList([
+      ...copy,
+      { ...deleted[0], isChecked: !deleted[0].isChecked },
+    ]);
+  }
+
   return (
     <>
       {section.map((sectionItem) => {
@@ -56,6 +72,7 @@ function Contents({ clicked, list, handleSetList }) {
             id={sectionItem.id}
             onDrop={drop}
             onDragOver={allowDrop}
+            onTouchEnd={touchEnd}
           >
             {sectionItem.data.map((listItem, idx) => {
               return (
@@ -65,6 +82,7 @@ function Contents({ clicked, list, handleSetList }) {
                   todoInfo={listItem}
                   list={list}
                   handleSetList={handleSetList}
+                  handleSetTouchId={handleSetTouchId}
                 />
               );
             })}
