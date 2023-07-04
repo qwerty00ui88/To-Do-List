@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# To Do List
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+일상 생활을 관리 할 수 있는 간편한 To Do List 🔗 [배포 링크](https://qwerty00ui88.github.io/To-Do-List/)
 
-## Available Scripts
+- To Do **생성/조회/수정/삭제** 기능
+- **Drag&Drop**을 통한 check/uncheck 변환 기능
+- 기한이 **만료**된 To Do 보기 기능
 
-In the project directory, you can run:
+<br />
 
-### `npm start`
+![todo-readme](https://github.com/qwerty00ui88/To-Do-List/assets/113837605/6c770ec7-0b3c-458d-96ae-c50d11ccbe5e)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<br />
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Skills
 
-### `npm test`
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">   <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">   <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">   <img src="https://img.shields.io/badge/Create React App-09D3AC?style=for-the-badge&logo=Create React App&logoColor=white">   <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white">   <img src="https://img.shields.io/badge/githubpages-222222?style=for-the-badge&logo=githubpages&logoColor=white">   <img src="https://img.shields.io/badge/githubactions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br />
 
-### `npm run build`
+## Pages & Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Web | Mobile |
+| :---: | :---: |
+| 생성 | 생성 |
+| ![todo_web_등록_2배속](https://github.com/qwerty00ui88/To-Do-List/assets/113837605/c93b1776-ae32-4601-870f-58672f6a3079) | ![등록_crop](https://github.com/qwerty00ui88/To-Do-List/assets/113837605/f873da7b-f5b1-4b16-a32c-ab4c4492963d) |
+| 수정 | 수정 |
+| ![todo_web_수정_2배속](https://github.com/qwerty00ui88/To-Do-List/assets/113837605/98eeed59-59c7-43d3-a913-9005dc4e5f57) | ![수정_crop](https://github.com/qwerty00ui88/To-Do-List/assets/113837605/e6e13b18-54ae-4433-8505-95b987a62275) |
+| 삭제 | 삭제 |
+| ![todo_web_삭제_2배속](https://github.com/qwerty00ui88/To-Do-List/assets/113837605/5d347cb6-b41c-43f6-98a6-ce7c6ae566e7) | ![삭제_crop](https://github.com/qwerty00ui88/To-Do-List/assets/113837605/fc458108-e853-4c1f-a23e-891f26d03287) |
+| check/uncheck 변환 | check/uncheck 변환 |
+| ![todo_web_상태변경_2배속](https://github.com/qwerty00ui88/To-Do-List/assets/113837605/d2c84bea-edb6-4c8d-96b2-c6fe9e62e9ba) | ![상태변경_crop](https://github.com/qwerty00ui88/To-Do-List/assets/113837605/3b838fc1-45e0-4faa-aa88-0220f9b82568) |
+| 만료된 To Do 보기 | 만료된 To Do 보기 |
+| ![todo_web_closed_2배속](https://github.com/qwerty00ui88/To-Do-List/assets/113837605/683a10cd-6187-4b58-b350-9ac17e360fb8) | ![closed_crop](https://github.com/qwerty00ui88/To-Do-List/assets/113837605/12e12fd1-1678-4fae-be70-d79bb8317a3e) |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br />
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Commit
 
-### `npm run eject`
+| Type | 설명 |
+| --- | --- |
+| feat | 새로운 기능 추가 |
+| fix | 버그 수정 또는 typo |
+| refactor | 리팩토링 |
+| design | CSS 등 사용자 UI 디자인 변경 |
+| comment | 필요한 주석 추가 및 변경 |
+| style | 코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우 |
+| test | 테스트(테스트 코드 추가, 수정, 삭제, 비즈니스 로직에 변경이 없는 경우) |
+| chore | 위에 걸리지 않는 기타 변경사항(빌드 스크립트 수정, assets image, 패키지 매니저 등) |
+| init | 프로젝트 초기 생성 |
+| rename | 파일 혹은 폴더명 수정하거나 옮기는 경우 |
+| remove | 파일을 삭제하는 작업만 수행하는 경우 |
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<br />
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Updated
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**v2.0.0**<br />
+localStorage에 데이터 저장<br />
+Drag&Drop 기능 추가
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**v2.0.1**<br />
+모바일 새로고침 시 데이터 손실 오류 수정
