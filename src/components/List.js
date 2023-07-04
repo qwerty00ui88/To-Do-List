@@ -6,7 +6,15 @@ import Modal from './Modal';
 import { useState } from 'react';
 import { todayDate } from '../utils/todayDate';
 import { deleteList } from '../utils/deleteList';
-function List({ id, todoInfo, list, handleSetList, handleSetTouchId }) {
+function List({
+  id,
+  todoInfo,
+  list,
+  handleSetList,
+  handleSetTouchId,
+  isDragging,
+  handleSetIsDragging,
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSetIsOpen = () => {
@@ -27,8 +35,37 @@ function List({ id, todoInfo, list, handleSetList, handleSetTouchId }) {
     dragevent.dataTransfer.setData('storm-diagram-node', dragevent.target.id);
   }
 
+  const offset = { x: 0, y: 0 };
+
   function handleTouchStart(e) {
     handleSetTouchId(e.currentTarget.id);
+    const clone = document.getElementById(id).cloneNode(true);
+    clone.setAttribute('id', 'cloneElement');
+
+    const rect = document.getElementById(id).getBoundingClientRect();
+
+    // const mouseX = e.clientX;
+    // const mouseY = e.clientY;
+    const cloneWidth = rect.width;
+    const cloneHeight = rect.height;
+
+    clone.style.position = 'fixed';
+    clone.style.width = cloneWidth + 'px';
+    clone.style.height = cloneHeight + 'px';
+    // clone.style.top = mouseY - cloneHeight / 2 + 'px';
+    // clone.style.left = mouseX - cloneWidth / 2 + 'px';
+
+    document.body.appendChild(clone);
+    handleSetIsDragging();
+  }
+
+  function handleTouchMove(e) {
+    if (isDragging) {
+      document.getElementById('cloneElement').style.left =
+        e.touches[0].clientX - offset.x + 'px';
+      document.getElementById('cloneElement').style.top =
+        e.touches[0].clientY - offset.y + 'px';
+    }
   }
 
   return (
@@ -39,6 +76,7 @@ function List({ id, todoInfo, list, handleSetList, handleSetTouchId }) {
         draggable={true}
         onTouchStart={handleTouchStart}
         onDragStart={drag}
+        onTouchMove={handleTouchMove}
       >
         <HiddenCheckBox
           id={id}
