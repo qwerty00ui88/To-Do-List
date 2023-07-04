@@ -6,15 +6,7 @@ import Modal from './Modal';
 import { useState } from 'react';
 import { todayDate } from '../utils/todayDate';
 import { deleteList } from '../utils/deleteList';
-function List({
-  id,
-  todoInfo,
-  list,
-  handleSetList,
-  handleSetTouchId,
-  isDragging,
-  handleSetIsDragging,
-}) {
+function List({ id, todoInfo, list, handleSetList }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSetIsOpen = () => {
@@ -35,38 +27,61 @@ function List({
     dragevent.dataTransfer.setData('storm-diagram-node', dragevent.target.id);
   }
 
-  const offset = { x: 0, y: 0 };
-
-  function handleTouchStart(e) {
-    handleSetTouchId(e.currentTarget.id);
+  const handleTouchStart = (touchStartEvent) => {
+    // 복사
     const clone = document.getElementById(id).cloneNode(true);
     clone.setAttribute('id', 'cloneElement');
 
-    const rect = document.getElementById(id).getBoundingClientRect();
+    const handleTouchMove = (touchMoveEvent) => {
+      // 위치 설정
+      clone.style.position = 'relative';
+      clone.style.right =
+        touchStartEvent.touches[0].screenX -
+        touchMoveEvent.touches[0].screenX +
+        'px';
+      clone.style.bottom =
+        touchStartEvent.touches[0].screenY -
+        touchMoveEvent.touches[0].screenY +
+        'px';
 
-    // const mouseX = e.clientX;
-    // const mouseY = e.clientY;
-    const cloneWidth = rect.width;
-    const cloneHeight = rect.height;
+      // append
+      document.getElementById(id).parentElement.appendChild(clone);
+    };
 
-    clone.style.position = 'fixed';
-    clone.style.width = cloneWidth + 'px';
-    clone.style.height = cloneHeight + 'px';
-    // clone.style.top = mouseY - cloneHeight / 2 + 'px';
-    // clone.style.left = mouseX - cloneWidth / 2 + 'px';
+    const handleTouchEnd = (touchEndEvent) => {
+      const targetedItem =
+        touchEndEvent.changedTouches[touchEndEvent.changedTouches.length - 1];
+      const sectionId = document.elementFromPoint(
+        targetedItem.clientX,
+        targetedItem.clientY
+      ).id;
 
-    document.body.appendChild(clone);
-    handleSetIsDragging();
-  }
+      const copy = list.slice();
+      const findIdx = copy.findIndex((el) => el.id === id);
+      const deleted = copy.splice(findIdx, 1);
+      handleSetList([
+        ...copy,
+        {
+          ...deleted[0],
+          isChecked:
+            sectionId === 'section1'
+              ? false
+              : sectionId === 'section2'
+              ? true
+              : deleted[0].isChecked,
+        },
+      ]);
 
-  function handleTouchMove(e) {
-    if (isDragging) {
-      document.getElementById('cloneElement').style.left =
-        e.touches[0].clientX - offset.x + 'px';
-      document.getElementById('cloneElement').style.top =
-        e.touches[0].clientY - offset.y + 'px';
-    }
-  }
+      document
+        .getElementById(todoInfo.isChecked ? 'section2' : 'section1')
+        .removeChild(document.getElementById('cloneElement'));
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+
+    document.getElementById(id).addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchend', handleTouchEnd, { once: true });
+  };
 
   return (
     <>
@@ -74,9 +89,8 @@ function List({
         id={id}
         isChecked={todoInfo.isChecked}
         draggable={true}
-        onTouchStart={handleTouchStart}
         onDragStart={drag}
-        onTouchMove={handleTouchMove}
+        onTouchStart={handleTouchStart}
       >
         <HiddenCheckBox
           id={id}

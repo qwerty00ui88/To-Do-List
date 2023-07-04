@@ -7,8 +7,6 @@ import { defaultData } from '../utils/defaultData';
 
 function Contents({ clicked, list, handleSetList }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [touchId, setTouchId] = useState(null);
-  const [isDragging, setIsDragging] = useState(false);
 
   const showList = list.filter((el) =>
     clicked === 'todo' ? el.dueDate >= todayDate : el.dueDate < todayDate
@@ -33,14 +31,6 @@ function Contents({ clicked, list, handleSetList }) {
     setIsOpen(!isOpen);
   };
 
-  const handleSetTouchId = (id) => {
-    setTouchId(id);
-  };
-
-  const handleSetIsDragging = () => {
-    setIsDragging(!isDragging);
-  };
-
   function drop(dropevent) {
     dropevent.preventDefault();
     const targetedItem = dropevent.currentTarget;
@@ -58,43 +48,6 @@ function Contents({ clicked, list, handleSetList }) {
     allowdropevent.preventDefault();
   }
 
-  function touchEnd(e) {
-    const targetedItem = e.changedTouches[e.changedTouches.length - 1];
-    console.log(targetedItem);
-    const sectionId = document.elementFromPoint(
-      targetedItem.clientX,
-      targetedItem.clientY
-    ).id;
-
-    // const copy = list.slice();
-    // const findIdx = copy.findIndex((el) => el.id === dataId);
-    // const deleted = copy.splice(findIdx, 1);
-    // handleSetList([
-    //   ...copy,
-    //   { ...deleted[0], isChecked: targetedItem.id !== 'section1' },
-    // ]);
-
-    const copy = list.slice();
-    const findIdx = copy.findIndex((el) => el.id === touchId);
-    const deleted = copy.splice(findIdx, 1);
-    handleSetList([
-      ...copy,
-      {
-        ...deleted[0],
-        isChecked:
-          sectionId === 'section1'
-            ? false
-            : sectionId === 'section2'
-            ? true
-            : deleted[0].isChecked,
-      },
-    ]);
-    handleSetIsDragging();
-
-    document.getElementById('cloneElement') &&
-      document.body.removeChild(document.getElementById('cloneElement'));
-  }
-
   return (
     <>
       {section.map((sectionItem) => {
@@ -104,7 +57,6 @@ function Contents({ clicked, list, handleSetList }) {
             id={sectionItem.id}
             onDrop={drop}
             onDragOver={allowDrop}
-            onTouchEnd={touchEnd}
           >
             {sectionItem.data.map((listItem, idx) => {
               return (
@@ -114,9 +66,6 @@ function Contents({ clicked, list, handleSetList }) {
                   todoInfo={listItem}
                   list={list}
                   handleSetList={handleSetList}
-                  handleSetTouchId={handleSetTouchId}
-                  isDragging={isDragging}
-                  handleSetIsDragging={handleSetIsDragging}
                 />
               );
             })}
@@ -144,4 +93,5 @@ const Section = styled.section`
   border: 1px solid lightgray;
   background-color: #fdfdfd;
   margin: 5px;
+  overflow: unset;
 `;
