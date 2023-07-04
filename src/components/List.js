@@ -6,7 +6,7 @@ import Modal from './Modal';
 import { useState } from 'react';
 import { todayDate } from '../utils/todayDate';
 import { deleteList } from '../utils/deleteList';
-function List({ id, todoInfo, list, handleSetList, handleSetTouchId }) {
+function List({ id, todoInfo, list, handleSetList }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSetIsOpen = () => {
@@ -23,13 +23,9 @@ function List({ id, todoInfo, list, handleSetList, handleSetTouchId }) {
   const dDay =
     (new Date(todayDate) - new Date(todoInfo.dueDate)) / (24 * 60 * 60 * 1000);
 
-  function drag(dragevent) {
+  const drag = (dragevent) => {
     dragevent.dataTransfer.setData('storm-diagram-node', dragevent.target.id);
-  }
-
-  function handleTouchStart(e) {
-    handleSetTouchId(e.currentTarget.id);
-  }
+  };
 
   return (
     <>
@@ -37,7 +33,6 @@ function List({ id, todoInfo, list, handleSetList, handleSetTouchId }) {
         id={id}
         isChecked={todoInfo.isChecked}
         draggable={true}
-        onTouchStart={handleTouchStart}
         onDragStart={drag}
       >
         <HiddenCheckBox
