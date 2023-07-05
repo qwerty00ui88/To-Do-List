@@ -1,9 +1,9 @@
 # To Do List
 
-일상 생활을 관리 할 수 있는 간편한 To Do List 🔗 [배포 링크](https://qwerty00ui88.github.io/To-Do-List/)
+일상생활을 관리 할 수 있는 간편한 To Do List 🔗 [배포 링크](https://qwerty00ui88.github.io/To-Do-List/)
 
 - To Do **생성/조회/수정/삭제** 기능
-- **Drag&Drop**을 통한 check/uncheck 변환 기능
+- **Drag & Drop**을 통한 check/uncheck 변환 기능
 - 기한이 **만료**된 To Do 보기 기능
 
 <br />
@@ -57,7 +57,7 @@
 
 **v2.0.0**<br />
 localStorage에 데이터 저장<br />
-Drag&Drop 기능 추가
+Drag & Drop 기능 추가
 
 **v2.0.1**<br />
 모바일 새로고침 시 데이터 손실 오류 수정
