@@ -97,7 +97,6 @@ const Div = styled.div`
     border-radius: 3px;
     color: #333d4b;
     :focus {
-      outline: none;
       border: 1px solid #abcdf8;
       box-shadow: 0px 0px 3px 2px #d0e4fd;
     }
